@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Reader practice</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='joe.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <form action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+            <div>{{ form.fileupload.label }} &nbsp; {{ form.fileupload }}</div>
+            <div style="padding: 5vh;">{{ form.submit }}</div>
+        </form>
+
+        <div style="padding: 5vh; max-height: 60vh;">
+            <table border="0">
+            {% if data %}
+                {% for row in data %}
+                    <tr>
+                        {% for r in row %}
+                            <td>{{ r }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            {% elif error %}
+                <h3> <b> {{ error }} </b> </h3>  
+            {% else %}
+                <h3> <b> ... </b> </h3>
+            {% endif %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>
